@@ -1,0 +1,29 @@
+#gameSpace {
+    width: 700px;
+    height: 600px;
+    border-style: solid;
+    border-color: black;
+    position: relative;
+}
+
+#airplane {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 550px;
+    left: 50%;
+    background-color: grey;
+}
+
+#startButton {
+    opacity: 30;
+    padding: 50px;
+    width: 50px;
+}
+
+.obstacle {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    background-color: black;
+}
