@@ -11,13 +11,11 @@
     height: 50px;
     position: absolute;
     top: 550px;
-    left: 50%;
+    left: 330px;
     background-color: grey;
 }
 
 #startButton {
-    opacity: 30;
-    padding: 50px;
     width: 50px;
 }
 
@@ -26,4 +24,23 @@
     height: 50px;
     position: absolute;
     background-color: black;
+}
+
+#infoBar {
+    display: flex;
+    width: 700px;
+    height: 50px;
+    background-color: antiquewhite;
+}
+
+#score {
+    margin: 10px;
+    font-size: 30px;
+}
+
+#scoreText {
+    margin: 10px;
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
 }
