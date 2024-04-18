@@ -11,7 +11,7 @@
     height: 50px;
     position: absolute;
     top: 550px;
-    left: 330px;
+    left: 350px;
     background-color: grey;
 }
 
@@ -43,4 +43,11 @@
     font-weight: bold;
     font-size: 25px;
     text-align: center;
+}
+
+.bullets {
+    position: absolute;
+    width: 10px;
+    height: 15px;
+    background-color: red;
 }

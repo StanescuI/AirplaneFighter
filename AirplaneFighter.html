@@ -12,7 +12,9 @@
         <div id="infoBar">
             <p id="scoreText">Score :</p>
             <div id="score">0</div>
-            <button id="startButton" onclick="startGame()">Start</button>
+            <button id="startButton" onclick="startGame(); gameType(1)">Time Trial</button>
+            <button id="startButton2" onclick="startGame(); gameType(2)">Avoid cubes</button>
+            <button id="startButton3" onclick="startGame(); gameType(3)">Shoot Mode</button>
         </div>
     </div>
     <script src="script.js"></script>
