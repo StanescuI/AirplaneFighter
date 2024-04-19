@@ -162,13 +162,13 @@ function decreaseHeight() {
 			width = Number(width);
 			if (bulletPos > height && bulletPos < height + OBJECT_WIDTH &&
 				bulletLeft > width && bulletLeft < width + OBJECT_WIDTH ) {
-					bullet.remove()
-					--activeBullets
-					obstacle.remove()
-					let scoreString = document.getElementById("score")
+				bullet.remove()
+				--activeBullets
+				obstacle.remove()
+				let scoreString = document.getElementById("score")
 				let currentScore = Number(scoreString.innerText)
 				scoreString.innerText = `${currentScore + shootScore}`
-				}
+			}
 		})
 	});
 }
