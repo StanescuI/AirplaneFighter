@@ -90,6 +90,7 @@ function reloadPage() {
 }
 
 // Game updates
+
 function shootObstacle() {
 	let bullet = document.createElement("div")
 	bullet.id = `${Math.random() * 5}`
@@ -161,7 +162,7 @@ function decreaseHeight() {
 			width = width.slice(0, -2)
 			width = Number(width);
 			if (bulletPos > height && bulletPos < height + OBJECT_WIDTH &&
-				bulletLeft > width && bulletLeft < width + OBJECT_WIDTH ) {
+				bulletLeft > width && bulletLeft < width + OBJECT_WIDTH) {
 				bullet.remove()
 				--activeBullets
 				obstacle.remove()
