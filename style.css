@@ -38,6 +38,11 @@
     font-size: 30px;
 }
 
+#difficulty {
+    margin : 10px;
+    font-size: 30px;
+}
+
 #scoreText {
     margin: 10px;
     font-weight: bold;
