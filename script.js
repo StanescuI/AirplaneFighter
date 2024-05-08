@@ -6,6 +6,7 @@ const COLLIDING_AREA = 500
 const OBJECT_WIDTH = 50
 let airplane = document.getElementById("airplane")
 let gameSpace = document.getElementById("gameSpace")
+let difficulyText = document.getElementById("difficulty")
 let isPressed = {"ArrowLeft" : false, "ArrowRight" : false, "ArrowUp" : false}
 let horizontalPos = 350
 let bulletWidth = 10
@@ -19,6 +20,11 @@ let obstacleCreation
 let heightDecrease
 let isMoving
 let isPaused = true
+let difficultySpike = 10
+let obstacleSpawnSpeed = 80
+let gameTime = 0
+let difficultyThreshold = 300
+let difficultyLevel = 1
 
 // Game states
 
@@ -51,8 +57,10 @@ function startGame() {
 function pauseGame() {
     if (isPaused) {
         scoreIncrease = setInterval(increaseScore, 1000)
-        obstacleCreation = setInterval(createObstacle, 800)
-        heightDecrease = setInterval(decreaseHeight, 10)
+        obstacleCreation = setInterval(createObstacle, `${obstacleSpawnSpeed * difficultySpike}`)
+        heightDecrease = setInterval(decreaseHeight, `${difficultySpike}`)
+		collisionInterval = setInterval(bulletCollision, 10)
+		gameSpikeInterval = setInterval(gameSpike, 10)
         isMoving = setInterval(movePlayer, 30)
         isPaused = false
         document.getElementById("pauseGame").textContent = "Pause"
@@ -60,7 +68,9 @@ function pauseGame() {
         clearInterval(scoreIncrease)
         clearInterval(obstacleCreation)
         clearInterval(heightDecrease)
+		clearInterval(collisionInterval)
         clearInterval(isMoving)
+		clearInterval(gameSpikeInterval)
         isPaused = true
         document.getElementById("pauseGame").textContent = "Resume"
     }
@@ -101,6 +111,18 @@ function shootObstacle() {
     ++activeBullets
 }
 
+function gameSpike() {
+	if (difficultyThreshold < gameTime && difficultySpike > 2) {
+		--difficultySpike
+		gameTime = 0
+		pauseGame()
+		pauseGame()
+        ++difficultyLevel
+        difficulyText.textContent = `Difficulty : ${difficultyLevel}` 
+	}
+	++gameTime
+}
+
 function createObstacle() {
     let obstacleSpawn = Math.random() * RIGHT_BORDER
     let obstacleVerticalPosition = 50
@@ -112,33 +134,8 @@ function createObstacle() {
     gameSpace.appendChild(obstacle)
 }
 
-function decreaseHeight() {
-    let obstacles = document.querySelectorAll(".obstacle")
-    obstacles.forEach(function(obstacle) {
-        let height = obstacle.style.top
-        height = height.slice(0, -2)
-        height = Number(height);
-        if (height < BOTTOM_PIXELS) {
-            height += 1
-            obstacle.style.top = `${height}px`
-        } else {
-            obstacle.remove()
-            let scoreString = document.getElementById("score")
-            let currentScore = Number(scoreString.innerText)
-            scoreString.innerText = `${currentScore + dodgeScore}`
-        }
-        let obstaclePos = obstacle.style.left
-        obstaclePos = obstaclePos.slice(0, -2)
-        obstaclePos = Number(obstaclePos);
-        let airplanePos = airplane.style.left
-        airplanePos = airplanePos.slice(0, -2)
-        airplanePos = Number(airplanePos);
-        if (height > COLLIDING_AREA && obstaclePos > airplanePos - OBJECT_WIDTH &&
-            obstaclePos < airplanePos + OBJECT_WIDTH) {
-            gameOver()
-        }
-    });
-    let bullets = document.querySelectorAll(".bullets")
+function bulletCollision() {
+	let bullets = document.querySelectorAll(".bullets")
     bullets.forEach(function(bullet) {
         let bulletPos = bullet.style.top
         bulletPos = bulletPos.slice(0, -2)
@@ -171,6 +168,34 @@ function decreaseHeight() {
                 scoreString.innerText = `${currentScore + shootScore}`
             }
         })
+    });
+}
+
+function decreaseHeight() {
+    let obstacles = document.querySelectorAll(".obstacle")
+    obstacles.forEach(function(obstacle) {
+        let height = obstacle.style.top
+        height = height.slice(0, -2)
+        height = Number(height);
+        if (height < BOTTOM_PIXELS) {
+            height += 1
+            obstacle.style.top = `${height}px`
+        } else {
+            obstacle.remove()
+            let scoreString = document.getElementById("score")
+            let currentScore = Number(scoreString.innerText)
+            scoreString.innerText = `${currentScore + dodgeScore}`
+        }
+        let obstaclePos = obstacle.style.left
+        obstaclePos = obstaclePos.slice(0, -2)
+        obstaclePos = Number(obstaclePos);
+        let airplanePos = airplane.style.left
+        airplanePos = airplanePos.slice(0, -2)
+        airplanePos = Number(airplanePos);
+        if (height > COLLIDING_AREA && obstaclePos > airplanePos - OBJECT_WIDTH &&
+            obstaclePos < airplanePos + OBJECT_WIDTH) {
+            gameOver()
+        }
     });
 }
 
