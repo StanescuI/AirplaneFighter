@@ -59,8 +59,8 @@ function pauseGame() {
         scoreIncrease = setInterval(increaseScore, 1000);
         obstacleCreation = setInterval(createObstacle, obstacleSpawnSpeed * difficultySpike);
         heightDecrease = setInterval(decreaseHeight, difficultySpike);
-		collisionInterval = setInterval(bulletCollision, 10);
-		gameSpikeInterval = setInterval(gameSpike, 10);
+        collisionInterval = setInterval(bulletCollision, 10);
+        gameSpikeInterval = setInterval(gameSpike, 10);
         isMoving = setInterval(movePlayer, 30);
         isPaused = false;
         document.getElementById("pauseGame").textContent = "Pause";
@@ -68,9 +68,9 @@ function pauseGame() {
         clearInterval(scoreIncrease);
         clearInterval(obstacleCreation);
         clearInterval(heightDecrease);
-		clearInterval(collisionInterval);
+        clearInterval(collisionInterval);
         clearInterval(isMoving);
-		clearInterval(gameSpikeInterval);
+        clearInterval(gameSpikeInterval);
         isPaused = true;
         document.getElementById("pauseGame").textContent = "Resume";
     }
@@ -112,15 +112,15 @@ function shootObstacle() {
 }
 
 function gameSpike() {
-	if (difficultyThreshold < gameTime && difficultySpike > 2) {
-		--difficultySpike;
-		gameTime = 0;
-		pauseGame();
-		pauseGame();
+    if (difficultyThreshold < gameTime && difficultySpike > 2) {
+        --difficultySpike;
+        gameTime = 0;
+        pauseGame();
+        pauseGame();
         ++difficultyLevel;
         difficulyText.textContent = `Difficulty : ${difficultyLevel}`;
-	}
-	++gameTime;
+    }
+    ++gameTime;
 }
 
 function createObstacle() {
@@ -135,7 +135,7 @@ function createObstacle() {
 }
 
 function bulletCollision() {
-	let bullets = document.querySelectorAll(".bullets");
+    let bullets = document.querySelectorAll(".bullets");
     bullets.forEach(function(bullet) {
         let bulletPos = bullet.style.top;
         bulletPos = bulletPos.slice(0, -2);
