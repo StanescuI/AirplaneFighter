@@ -186,7 +186,7 @@ function decreaseHeight() {
         height = height.slice(0, -2);
         height = Number(height);
         if (height < BOTTOM_PIXELS) {
-            height += 1;
+            ++height;
             obstacle.style.top = `${height}px`;
         } else {
             obstacle.remove();
@@ -210,7 +210,7 @@ function decreaseHeight() {
 
 function movePlayer() {
     if (isPressed["ArrowLeft"] && horizontalPos > 0 && !isPaused) {
-        horizontalPos += -5;
+        horizontalPos -= 5;
     }
     if (isPressed["ArrowRight"] && horizontalPos < RIGHT_BORDER && !isPaused) {
         horizontalPos += 5;
