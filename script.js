@@ -58,7 +58,9 @@ function startGame() {
 
 function pauseGame() {
     if (isPaused) {
-        scoreIncrease = setInterval(increaseScore, SCORE_INTERVAL);
+        if (timeScore) {
+            scoreIncrease = setInterval(increaseScore, SCORE_INTERVAL);
+        }
         obstacleCreation = setInterval(createObstacle,
                            obstacleSpawnSpeed * difficultySpike);
         heightDecrease = setInterval(decreaseHeight, difficultySpike);
@@ -68,7 +70,9 @@ function pauseGame() {
         isPaused = false;
         document.getElementById("pauseGame").textContent = "Pause";
     } else {
-        clearInterval(scoreIncrease);
+        if (timeScore) {
+            clearInterval(scoreIncrease);
+        }
         clearInterval(obstacleCreation);
         clearInterval(heightDecrease);
         clearInterval(collisionInterval);
@@ -171,9 +175,9 @@ function bulletCollision(bullet, bulletPos, bulletLeft) {
             bullet.remove();
             --activeBullets;
             obstacle.remove();
-            let scoreString = document.getElementById("score");
-            let currentScore = Number(scoreString.innerText);
-            scoreString.innerText = `${currentScore + shootScore}`;
+            if (shootScore) {
+                increaseScore();
+            }
         }
     })
 }
@@ -196,9 +200,9 @@ function decreaseHeight() {
             obstacle.style.top = `${height}px`;
         } else {
             obstacle.remove();
-            let scoreString = document.getElementById("score");
-            let currentScore = Number(scoreString.innerText);
-            scoreString.innerText = `${currentScore + dodgeScore}`;
+            if (dodgeScore) {
+                increaseScore();
+            }
         }
         let obstaclePos = obstacle.style.left;
         obstaclePos = obstaclePos.slice(0, -2);
@@ -248,8 +252,8 @@ function stopMoving(e) {
     }
 }
 
-function increaseScore() {
+function increaseScore () {
     let scoreString = document.getElementById("score");
     let currentScore = Number(scoreString.innerText);
-    scoreString.innerText = `${currentScore + timeScore}`;
+    scoreString.innerText = `${currentScore + 1}`;
 }
