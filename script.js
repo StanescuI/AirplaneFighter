@@ -167,19 +167,21 @@ function bulletCollision(bullet, bulletPos, bulletLeft) {
         let width = obstacle.style.left;
         width = width.slice(0, -2);
         width = Number(width);
-        isColliding(bullet, bulletPos, bulletLeft, height, width, obstacle)
+        if (isColliding(bulletPos, bulletLeft, height, width,)) {
+            bullet.remove();
+            --activeBullets;
+            obstacle.remove();
+            let scoreString = document.getElementById("score");
+            let currentScore = Number(scoreString.innerText);
+            scoreString.innerText = `${currentScore + shootScore}`;
+        }
     })
 }
 
-function isColliding(bullet, bulletPos, bulletLeft, height, width, obstacle) {
+function isColliding(bulletPos, bulletLeft, height, width,) {
     if (bulletPos > height && bulletPos < height + OBJECT_WIDTH &&
         bulletLeft > width && bulletLeft < width + OBJECT_WIDTH) {
-        bullet.remove();
-        --activeBullets;
-        obstacle.remove();
-        let scoreString = document.getElementById("score");
-        let currentScore = Number(scoreString.innerText);
-        scoreString.innerText = `${currentScore + shootScore}`;
+        return true;
     }
 }
 
